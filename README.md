@@ -278,7 +278,7 @@
 
 2. Rename the main python file:
 
-	- mv /var/www/tutor_site/tutor_site/main.py /var/www/tutor_site/tutor_site/__init__.py
+	- `mv /var/www/tutor_site/tutor_site/main.py /var/www/tutor_site/tutor_site/__init__.py`
 
 3. Enter your virtual environment and install all required packages:
 
@@ -291,6 +291,10 @@
 	- `sudo pip install oauth2client`
 
 	- `sudo pip install sqlalchemy`
+
+4. Run python app:
+
+	- `sudo python __init__.py`
 
 
 
