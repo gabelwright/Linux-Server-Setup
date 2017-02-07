@@ -334,6 +334,20 @@
 
 	- save <kbd>ctrl</kbd>+<kbd>O</kbd> and exit <kbd>ctrl</kbd>+<kbd>X</kbd>
 
+	b. Make a similar change in your `__init__.py` file:
+
+	- `nano __init__.py`
+
+	- change
+
+		engine = create_engine('sqlite:///localtutors.db')
+
+		to
+
+		engine = create_engine("postgresql://catalog:tutor@localhost/tutor")
+
+	- save <kbd>ctrl</kbd>+<kbd>O</kbd> and exit <kbd>ctrl</kbd>+<kbd>X</kbd>
+
 3. Enter your virtual environment and install all required packages:
 
 	- `service temp_env/bin/activate`
@@ -344,9 +358,27 @@
 
 	- `sudo pip install oauth2client`
 
-4. Run python app:
+4. Edit your filepaths to match their new location:
 
-	- `sudo python __init__.py`
+	- `cd /var/www/tutor_site/tutor_site`
+
+	- `nano __init__.py`
+
+	- change
+
+		CLIENT_ID = json.loads(open('client_secrets.json', 'r').read())['web']['client_id']
+
+		to 
+
+		CLIENT_ID = json.loads(open('/var/www/tutor_site/tutor_site/client_secrets.json', 'r').read())['web']['client_id']
+
+		and 
+
+		oauth_flow = flow_from_clientsecrets('client_secrets.json', scope='')
+
+		to
+
+		oauth_flow = flow_from_clientsecrets('/var/www/tutor_site/tutor_site/client_secrets.json', scope='')
 
 
 
