@@ -266,6 +266,42 @@
 
 12. Again, navigate to the IP address in your web browser and you should see `Hello World, everything seems to be working!`
 
+### Install and setup PostgreSQL
+
+1. Navigate to your virtual enviornment and activate it:
+
+	- `cd /var/www/tutor_site/tutor_site`
+
+	- `source temp_env/bin/activate`
+
+2. Install PostgreSQL as well as other needed packages:
+
+	- `sudo apt-get install postgresql`
+
+	- `sudo pip install sqlalchemy` 
+
+	- `sudo apt-get install python-psycopg2`
+
+3. When PostgreSQL is installed, it automatically creates a new user named `postgres` you need to switch to that user and start PostgreSQL:
+
+	- `su - postgres`
+
+	- `psql`
+
+4. Now that we are in Postgres, we can manipulate our database.  First create a new user with permission to create databases:
+
+	- `CREATE USER catalog WITH PASSWORD 'tutor';`
+
+	- `ALTER USER catalog CREATEDB;`
+
+	- `CREATE DATABASE tutor WITH OWNER catalog;`
+
+5. Switch to our new user and revoke public access to the new database:
+
+	- `REVOKE ALL ON SCHEMA public FROM public;`
+
+	- `GRANT ALL ON SCHEMA public TO catalog;`
+
 ### Add Application from Github
 
 1. Clone your application from git:
@@ -280,6 +316,24 @@
 
 	- `mv /var/www/tutor_site/tutor_site/main.py /var/www/tutor_site/tutor_site/__init__.py`
 
+3. (Optional) If your flask app uses SQLite, it should be switched to PostgreSQL:
+
+	a. Open the database setup file and make the following changes:
+
+	- `cd /var/www/tutor_site/tutor_site`
+
+	- `nano db_setup.py`
+
+	- change 
+
+			engine = create_engine('sqlite:///localtutors.db')
+
+			to
+
+			engine = create_engine("postgresql://catalog:tutor@localhost/tutor")
+
+	- save <kbd>ctrl</kbd>+<kbd>O</kbd> and exit <kbd>ctrl</kbd>+<kbd>X</kbd>
+
 3. Enter your virtual environment and install all required packages:
 
 	- `service temp_env/bin/activate`
@@ -289,8 +343,6 @@
 	- `sudo pip install requests`
 
 	- `sudo pip install oauth2client`
-
-	- `sudo pip install sqlalchemy`
 
 4. Run python app:
 
