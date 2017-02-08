@@ -42,11 +42,11 @@
 
 	- `mkdir .ssh`
 
-	- `touch authorized_keys`
+	- `touch .ssh/authorized_keys`
 
 4. Open this file and copy/paste the public key from your local machine (step 2) into it
 
-	- `nano authorized_keys`
+	- `nano .ssh/authorized_keys`
 
 	- save <kbd>ctrl</kbd>+<kbd>O</kbd> and exit <kbd>ctrl</kbd>+<kbd>X</kbd>
 
