@@ -1,6 +1,6 @@
 ## Setting up a Linux Server
 
-#### IP Address: 50.112.65.170
+#### IP Address: 52.10.189.97
 
 ## Setup
 
@@ -27,6 +27,12 @@
 5. Switch to the new user
 
 	- `su - grader`
+
+6. Upgrade installed packages:
+
+	- `sudo apt-get update`
+
+	- `sudo apt-get upgrade`
 
 ### - Configure Key-Based Authentication:
 
@@ -62,7 +68,7 @@
 
 	- `exit`
 
-	- `ssh grader@50.112.65.170 -i ~/.ssh/nano`
+	- `ssh grader@52.10.189.97 -i ~/.ssh/nano`
 
 ### - Configure ssh Settings:
 
@@ -84,11 +90,21 @@
 
 	- `sudo service ssh restart`
 
+(Optional) If `sudo: unable to resolve host ip-XX-XX-XX-XXX` appears after using the `sudo` command:
+
+	- `cd /etc`
+
+	- `sudo nano hosts`
+
+	- change the first line so it reads `127.0.0.1 localhost ip-XX-XX-XX-XXX`
+
+	- save <kbd>ctrl</kbd>+<kbd>O</kbd> and exit <kbd>ctrl</kbd>+<kbd>X</kbd>
+
 4. Exit the ssh connection and re-connect using port 2200:
 
 	- `exit`
 
-	- `ssh grader@50.112.65.170 -i ~/.ssh/nano -p 2200`
+	- `ssh grader@52.10.189.97 -i ~/.ssh/nano -p 2200`
 
 ### Configure the Firewall
 
@@ -120,62 +136,23 @@
 
 3. Scroll down and select `UTC`
 
-### Setup Apache Server for WSGI Applications
+### Configure Server for flask
 
 1. Install Apache 2 and the WSGI plugin:
 
 	- `sudo apt-get install apache2`
 
-	- `sudo apt-get install libapache2-mod-wsgi`
+	- `sudo apt-get install libapache2-mod-wsgi python-dev`
 
 	- `sudo apt-get install python-setuptools`
 
-2. Tell apache how to respond to WSGI requests by editing the confige file:
-
-	- `sudo nano /etc/apache2/sites-enabled/000-default.conf`
-
-3. Add the following line right before `</VirtualHost>`
-
-	- `WSGIScriptAlias / /var/www/html/myapp.wsgi`
-
-	- save <kbd>ctrl</kbd>+<kbd>O</kbd> and exit <kbd>ctrl</kbd>+<kbd>X</kbd>
-
-4. Restart apache so the changes take affect:
-
-	- `sudo apache2ctl restart`
-
-5. Create your WSGI app file:
-
-	- `sudo nano /var/www/html/myapp.wsgi`
-
-6. To test if everything has been setup right, paste in the following:
-		
-		def application(environ, start_response):
-		    status = '200 OK'
-		    output = 'Hurray!!! It works!'
-
-		    response_headers = [('Content-type', 'text/plain'), ('Content-Length', str(len(output)))]
-		    start_response(status, response_headers)
-
-		    return [output]
-
-7. In your web browser, navigate to the web page `50.112.65.170`. If you should see the message `Hurray!!! It works!` 
-
-### Configure Server for flask app from Github
-
-1. Install git and required python package:
-
-	- `sudo apt-get install git python-dev`
+	- `sudo a2enmod wsgi` 
 
 2. Create the new directories to hold our app:
 
 	- `sudo mkdir /var/www/tutor_site`
 
 	- `sudo mkdir /var/www/tutor_site/tutor_site`
-
-	- `sudo mkdir /var/www/tutor_site/tutor_site/static`
-
-	- `sudo mkdir /var/www/tutor_site/tutor_site/templates`
 
 3. Move into the directory you just created and create a new file to hold all of our python logic:
 
@@ -191,7 +168,7 @@
 		def hello():
 		    return "Hello World, everything seems to be working!"
 		if __name__ == "__main__":
-		  app.run()
+			app.run()
 
 	- save <kbd>ctrl</kbd>+<kbd>O</kbd> and exit <kbd>ctrl</kbd>+<kbd>X</kbd>
 
@@ -213,15 +190,19 @@
 
 	- `sudo python __init__.py`
 
-8. Again, navigate to your IP address in your web browser.  If everything is set up correctly, you should see `Hello World, everything seems to be working!`
+8. If everything is working correctly, you should see `Running on http://localhost:5000/` in the terminal. Next deactivate your envirnment:
+
+	- `<kbd>ctrl</kbd>+<kbd>C</kbd>`
+
+	- `deactivate`
 
 9. Create the app config file, add the following code, and then enable the app:
 
 	- `sudo nano /etc/apache2/sites-available/tutor_site.conf`
 
 			<VirtualHost *:80>
-	            ServerName 50.112.65.170
-	            ServerAdmin admin@50.112.65.170
+	            ServerName 52.10.189.97
+	            ServerAdmin admin@52.10.189.97
 	            WSGIScriptAlias / /var/www/tutor_site/tutor_site.wsgi
 	            <Directory /var/www/tutor_site/tutor_site/>
 	                    Order allow,deny
@@ -247,7 +228,7 @@
 
 	- `cd /var/www/tutor_site`
 
-	- `nano tutor_site.wsgi`
+	- `sudo nano tutor_site.wsgi`
 
 			#!/usr/bin/python
 			import sys
@@ -264,7 +245,7 @@
 
 	- `sudo service apache2 restart`
 
-12. Again, navigate to the IP address in your web browser and you should see `Hello World, everything seems to be working!`
+12. Navigate to the IP address in your web browser and you should see `Hello World, everything seems to be working!`
 
 ### Install and setup PostgreSQL
 
@@ -305,6 +286,8 @@
 ### Add Application from Github
 
 1. Clone your application from git:
+
+	- `sudo apt-get install git`
 
 	- `cd /var/www/tutor_site`
 
@@ -366,19 +349,19 @@
 
 	- change
 
-		CLIENT_ID = json.loads(open('client_secrets.json', 'r').read())['web']['client_id']
+			CLIENT_ID = json.loads(open('client_secrets.json', 'r').read())['web']['client_id']
 
-		to 
+			to 
 
-		CLIENT_ID = json.loads(open('/var/www/tutor_site/tutor_site/client_secrets.json', 'r').read())['web']['client_id']
+			CLIENT_ID = json.loads(open('/var/www/tutor_site/tutor_site/client_secrets.json', 'r').read())['web']['client_id']
 
-		and 
+			and 
 
-		oauth_flow = flow_from_clientsecrets('client_secrets.json', scope='')
+			oauth_flow = flow_from_clientsecrets('client_secrets.json', scope='')
 
-		to
+			to
 
-		oauth_flow = flow_from_clientsecrets('/var/www/tutor_site/tutor_site/client_secrets.json', scope='')
+			oauth_flow = flow_from_clientsecrets('/var/www/tutor_site/tutor_site/client_secrets.json', scope='')
 
 
 
