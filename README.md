@@ -4,7 +4,7 @@
 
 ## Setup
 
-### - Create new user with root access:
+### Create new user with root access:
 
 1. ssh into server using the provided rsa key
 
@@ -34,7 +34,7 @@
 
 	- `sudo apt-get upgrade`
 
-### - Configure Key-Based Authentication:
+### Configure Key-Based Authentication:
 
 1. On your local machine, run the folowing command to generate a new rsa key for `grader.` For name and location, use `~/.ssh/nano`
 
@@ -70,7 +70,7 @@
 
 	- `ssh grader@52.10.189.97 -i ~/.ssh/nano`
 
-### - Configure ssh Settings:
+### Configure ssh Settings:
 
 1. Open the ssh config file
 
