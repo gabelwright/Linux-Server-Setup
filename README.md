@@ -405,6 +405,10 @@
 
 	- save <kbd>ctrl</kbd>+<kbd>O</kbd> and exit <kbd>ctrl</kbd>+<kbd>X</kbd>
 
+6. Prevent file indexing from a web browser:
+
+	- `sudo a2dismod autoindex`
+
 7. Restart apache2 one last time and enjoy your new website!
 
 	- `sudo service restart apache2`
