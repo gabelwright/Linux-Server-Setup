@@ -192,7 +192,7 @@
 
 8. If everything is working correctly, you should see `Running on http://localhost:5000/` in the terminal. Next deactivate your envirnment:
 
-	- `<kbd>ctrl</kbd>+<kbd>C</kbd>`
+	- <kbd>ctrl</kbd>+<kbd>C</kbd>
 
 	- `deactivate`
 
@@ -237,7 +237,7 @@
 			sys.path.insert(0,"/var/www/tutor_site/")
 
 			from tutor_site import app as application
-			application.secret_key = 'Add your secret key'
+			application.secret_key = 'something'
 
 	- save <kbd>ctrl</kbd>+<kbd>O</kbd> and exit <kbd>ctrl</kbd>+<kbd>X</kbd>
 
@@ -265,9 +265,7 @@
 
 3. When PostgreSQL is installed, it automatically creates a new user named `postgres` you need to switch to that user and start PostgreSQL:
 
-	- `su - postgres`
-
-	- `psql`
+	- `sudo -u postgres psql`
 
 4. Now that we are in Postgres, we can manipulate our database.  First create a new user with permission to create databases:
 
@@ -305,7 +303,7 @@
 
 	- `cd /var/www/tutor_site/tutor_site`
 
-	- `nano db_setup.py`
+	- `sudo nano db_setup.py`
 
 	- change 
 
@@ -323,11 +321,11 @@
 
 	- change
 
-		engine = create_engine('sqlite:///localtutors.db')
+			engine = create_engine('sqlite:///localtutors.db')
 
-		to
+			to
 
-		engine = create_engine("postgresql://catalog:tutor@localhost/tutor")
+			engine = create_engine("postgresql://catalog:tutor@localhost/tutor")
 
 	- save <kbd>ctrl</kbd>+<kbd>O</kbd> and exit <kbd>ctrl</kbd>+<kbd>X</kbd>
 
@@ -341,9 +339,17 @@
 
 	- `sudo pip install oauth2client`
 
-4. Edit your filepaths to match their new location:
+4. Add your client secrets and edit their filepaths to match their new location:
 
 	- `cd /var/www/tutor_site/tutor_site`
+
+	- `sudo nano client_secrets.json`
+
+		Copy/paste your client secrets from google.
+
+	- `sudo nano fb_client_secrets.json`
+
+		Copy/paste your client secrets from facebook.
 
 	- `nano __init__.py`
 
@@ -355,7 +361,7 @@
 
 			CLIENT_ID = json.loads(open('/var/www/tutor_site/tutor_site/client_secrets.json', 'r').read())['web']['client_id']
 
-			and 
+	- change
 
 			oauth_flow = flow_from_clientsecrets('client_secrets.json', scope='')
 
@@ -363,10 +369,49 @@
 
 			oauth_flow = flow_from_clientsecrets('/var/www/tutor_site/tutor_site/client_secrets.json', scope='')
 
+	- change
 
+			app_id = json.loads(open('fb_client_secrets.json', 'r').read())['web']['app_id']
 
+			to 
 
+			app_id = json.loads(open('/var/www/tutor_site/tutor_site/fb_client_secrets.json', 'r').read())['web']['app_id']
 
+	- change
+
+			app_secret = json.loads(open('fb_client_secrets.json', 'r').read())['web']['app_secret']
+
+			to
+
+			app_secret = json.loads(open('/var/www/tutor_site/tutor_site/fb_client_secrets.json', 'r').read())['web']['app_secret']
+
+	- change
+
+			UPLOAD_FOLDER = '/vagrant/tutor_site/static/pictures/'
+
+			to
+
+			UPLOAD_FOLDER = '/var/www/tutor_site/tutor_site/static/pictures/'
+
+5. Log into the google and facebook developers console and add your new web address to the accepted list of orgins and redirects.
+
+	- If you don't have a web address for your ip, you can obtain one at [http://whatismyipaddress.com/ip-hostname](http://whatismyipaddress.com/ip-hostname)
+
+6. Add your web domain to your `tutor_site.conf` file:
+
+	- `sudo nano /etc/apache2/sites-available/tutor_site.conf`
+
+	- add `ServerAlias YOUR_DOMAIN_NAME` directly under the line `ServerAdmin admin@52.10.189.97`
+
+	- save <kbd>ctrl</kbd>+<kbd>O</kbd> and exit <kbd>ctrl</kbd>+<kbd>X</kbd>
+
+7. Restart apache2 one last time and enjoy your new website!
+
+### Troubleshooting
+
+	If you run into errors or get an `Internal Error` message, check the logs to see what the problem is:
+
+		- `sudo cat /var/log/apache2/error.log`
 
 
 
