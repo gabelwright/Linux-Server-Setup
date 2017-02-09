@@ -90,7 +90,7 @@
 
 	- `sudo service ssh restart`
 
-(Optional) If `sudo: unable to resolve host ip-XX-XX-XX-XXX` appears after using the `sudo` command:
+4. (Optional) If `sudo: unable to resolve host ip-XX-XX-XX-XXX` appears after using the `sudo` command:
 
 	- `cd /etc`
 
@@ -100,7 +100,7 @@
 
 	- save <kbd>ctrl</kbd>+<kbd>O</kbd> and exit <kbd>ctrl</kbd>+<kbd>X</kbd>
 
-4. Exit the ssh connection and re-connect using port 2200:
+5. Exit the ssh connection and re-connect using port 2200:
 
 	- `exit`
 
