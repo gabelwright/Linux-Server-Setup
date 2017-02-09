@@ -407,11 +407,13 @@
 
 7. Restart apache2 one last time and enjoy your new website!
 
-### Troubleshooting
+	- `sudo service restart apache2`
 
-	If you run into errors or get an `Internal Error` message, check the logs to see what the problem is:
+	- In a webbrowser, navigate to your new website!
 
-		- `sudo cat /var/log/apache2/error.log`
+8. If you run into errors or get an `Internal Error` message, check the logs to see what the problem is:
+
+	- `sudo cat /var/log/apache2/error.log`
 
 
 
