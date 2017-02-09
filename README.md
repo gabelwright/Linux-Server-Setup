@@ -1,6 +1,6 @@
 ## Setting up a Linux Server
 
-#### IP Address: 52.10.189.97
+#### IP Address: 52.38.86.34
 
 ## Setup
 
@@ -68,7 +68,7 @@
 
 	- `exit`
 
-	- `ssh grader@52.10.189.97 -i ~/.ssh/nano`
+	- `ssh grader@52.38.86.34 -i ~/.ssh/nano`
 
 ### Configure ssh Settings:
 
@@ -104,7 +104,7 @@
 
 	- `exit`
 
-	- `ssh grader@52.10.189.97 -i ~/.ssh/nano -p 2200`
+	- `ssh grader@52.38.86.34 -i ~/.ssh/nano -p 2200`
 
 ### Configure the Firewall
 
@@ -201,8 +201,8 @@
 	- `sudo nano /etc/apache2/sites-available/tutor_site.conf`
 
 			<VirtualHost *:80>
-	            ServerName 52.10.189.97
-	            ServerAdmin admin@52.10.189.97
+	            ServerName 52.38.86.34
+	            ServerAdmin admin@52.38.86.34
 	            WSGIScriptAlias / /var/www/tutor_site/tutor_site.wsgi
 	            <Directory /var/www/tutor_site/tutor_site/>
 	                    Order allow,deny
@@ -401,7 +401,7 @@
 
 	- `sudo nano /etc/apache2/sites-available/tutor_site.conf`
 
-	- add `ServerAlias YOUR_DOMAIN_NAME` directly under the line `ServerAdmin admin@52.10.189.97`
+	- add `ServerAlias YOUR_DOMAIN_NAME` directly under the line `ServerAdmin admin@52.38.86.34`
 
 	- save <kbd>ctrl</kbd>+<kbd>O</kbd> and exit <kbd>ctrl</kbd>+<kbd>X</kbd>
 
