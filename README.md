@@ -32,7 +32,7 @@
 
 	- `adduser grader`
 
-		- Assign genertic password (passwords will be disabled so it will not be used)
+		- Assign strong password
 
 3. Give `grader` root access by creating a sudoers config file:
 
