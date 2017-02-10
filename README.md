@@ -6,7 +6,13 @@
 
 #### SSH Port: 2200
 
-#### Sources: [Digital Ocean Tutorials](https://www.digitalocean.com/community/tutorials/) and StackOverflow
+#### Sources: 
+
+	- [Digital Ocean Tutorials](https://www.digitalocean.com/community/tutorials/)
+
+	- StackOverflow
+
+	- Udacity Forums
 
 #### Installed Software:
 
