@@ -20,7 +20,7 @@
 
 4. Add the following line
 
-	- `grader ALL=(ALL) NOPASSWD:ALL`
+	- `grader ALL=(ALL) ALL`
 
 	- save <kbd>ctrl</kbd>+<kbd>O</kbd> and exit <kbd>ctrl</kbd>+<kbd>X</kbd>
 
@@ -331,13 +331,17 @@
 
 3. Enter your virtual environment and install all required packages:
 
-	- `service temp_env/bin/activate`
+	- `source temp_env/bin/activate`
 
 	- `sudo pip install httplib2`
 
 	- `sudo pip install requests`
 
 	- `sudo pip install oauth2client`
+
+3. Create your database:
+
+	- `sudo python db_setup.py`
 
 4. Add your client secrets and edit their filepaths to match their new location:
 
@@ -393,6 +397,16 @@
 
 			UPLOAD_FOLDER = '/var/www/tutor_site/tutor_site/static/pictures/'
 
+4. To ensure everything is connected correctly, re-run your `__init__.py` file:
+
+	- `sudo python __init__.py`
+
+	If everything is good, you should see `* Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)`
+
+	- <kbd>ctrl</kbd>+<kbd>C</kbd>
+
+	- `deactivate`
+
 5. Log into the google and facebook developers console and add your new web address to the accepted list of orgins and redirects.
 
 	- If you don't have a web address for your ip, you can obtain one at [http://whatismyipaddress.com/ip-hostname](http://whatismyipaddress.com/ip-hostname)
@@ -411,7 +425,7 @@
 
 7. Restart apache2 one last time and enjoy your new website!
 
-	- `sudo service restart apache2`
+	- `sudo service apache2 restart`
 
 	- In a webbrowser, navigate to your new website!
 
