@@ -2,6 +2,26 @@
 
 #### IP Address: 52.38.86.34
 
+#### Web Address: http://52.38.86.34/
+
+#### SSH Port: 2200
+
+#### Sources: [Digital Ocean Tutorials](https://www.digitalocean.com/community/tutorials/) and StackOverflow
+
+#### Installed Software:
+
+	- Apache2: What actually hosts the web app
+
+	- SQLAlachemy: Handles all of the communication between the application and the database
+
+	- PostgreSQL: The database that stores all of our data
+
+	- Virtualenv: Creates a virtual environment for our app to run in
+
+	- Git: Allows us to directly clone our project onto our server
+
+	- oAuth 2: Handles all login activity with google and facebook
+
 ## Setup
 
 ### Create new user with root access:
