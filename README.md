@@ -1,10 +1,10 @@
 ## Setting up a Linux Server
 
-#### IP Address: 52.38.86.34
+This guide is provided to show step-by-step how to setup a flask app on a Virtual Private Server(VPS).  If you do not have a VPS, one can be rented for about $5 a month from several different providers.  I use and recommend [Digital Ocean](https://m.do.co/c/754456b5d325) if you don’t already have something setup.
+
+#### IP Address (Provided with your VPS): 52.38.86.34
 
 #### Web Address: http://52.38.86.34/
-
-#### SSH Port: 2200
 
 #### Sources: 
 
@@ -14,7 +14,7 @@
 
 	- Udacity Forums
 
-#### Installed Software:
+#### Software We Will Be Installing:
 
 	- Apache2: What actually hosts the web app
 
@@ -32,7 +32,7 @@
 
 ### Create new user with root access:
 
-1. ssh into server using the provided rsa key
+1. ssh into server using the provided rsa key/password
 
 2. Create a new user
 
